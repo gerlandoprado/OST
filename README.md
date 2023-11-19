@@ -1,16 +1,32 @@
-# ost
+# OST - Online Student Tracker
 
-A new Flutter project.
+## Sistema de Acompanhamento de Alunos Online 
 
-## Getting Started
+Projeto a ser desenvolvido como requisito para aprovação na disciplina de __Engenharia de Software__ do 5º semestre do Bacharelado em Ciência da Computação do Instituto Federal do Ceará (IFCE) - Campus Tianguá.
 
-This project is a starting point for a Flutter application.
+O projeto tem como objetivo principal criar um sistema que permita o acompanhamento online do desempenho escolar dos estudantes pelos responsáveis, através de app multi-plataforma desenvolvido utilizando Flutter e Dart.
 
-A few resources to get you started if this is your first Flutter project:
+## Equipe de desenvolvimento
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* Gerlando Lima Prado
+* João Ferreira Linhares
+* Everton de Almeida Veras
+* Raul Santos Ribeiro
+* Hugo Ribeiro Rodrigues
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Professora da disciplina
+
+* __Cynthia Pinheiro Santiago__
+
+## Configurando o ambiente
+
+__Softwares necessários:__
+
+1. Git
+2. VS Code
+3. Android Studio
+4. Framework __Flutter__
+5. Extensão do Flutter no VSCode
+6. Extensão do Dart no VS Code
+
+__[Vídeo explicativo de como configurar o ambiente no Windows](https://www.youtube.com/watch?v=dpppZ9ySJSY)__
