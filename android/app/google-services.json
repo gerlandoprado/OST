@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "951740327092",
+    "project_id": "projeto-ost",
+    "storage_bucket": "projeto-ost.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951740327092:android:0dbcfdf3d2eb95b768e3e1",
+        "android_client_info": {
+          "package_name": "com.example.ost"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPGGNwkl1OMqxvMYiU5M2Qk6a2v2KD5z8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
