@@ -29,4 +29,12 @@ __Softwares necessários:__
 5. Extensão do Flutter no VSCode
 6. Extensão do Dart no VS Code
 
+__Verificar se o ambiente foi configurado__
+
+1. flutter doctor
+
+## Para Iniciar o Desenvolvimento local, siga o seguinte anexo:
+
+[Configurando desenvolvimento local](./SETUP.md)
+
 __[Vídeo explicativo de como configurar o ambiente no Windows](https://www.youtube.com/watch?v=dpppZ9ySJSY)__
