@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'OST',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.green,
         ),
       ),
@@ -30,51 +37,51 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ItemMenu> itensMenu = [
     ItemMenu(
       label: 'Início',
-      icon: Icon(Icons.home),
+      icon: const Icon(Icons.home),
     ),
     ItemMenu(
       label: 'Notificações',
-      icon: Icon(Icons.notifications),
+      icon: const Icon(Icons.notifications),
     ),
     ItemMenu(
       label: 'Horário das aulas',
-      icon: Icon(Icons.schedule),
+      icon: const Icon(Icons.schedule),
     ),
     ItemMenu(
       label: 'Calendário escolar',
-      icon: Icon(Icons.calendar_today),
+      icon: const Icon(Icons.calendar_today),
     ),
     ItemMenu(
       label: 'Atividades',
-      icon: Icon(Icons.assignment),
+      icon: const Icon(Icons.assignment),
     ),
     ItemMenu(
       label: 'Provas e trabalhos',
-      icon: Icon(Icons.assignment_turned_in),
+      icon: const Icon(Icons.assignment_turned_in),
     ),
     ItemMenu(
       label: 'Notas',
-      icon: Icon(Icons.note),
+      icon: const Icon(Icons.note),
     ),
     ItemMenu(
       label: 'Frequência',
-      icon: Icon(Icons.people),
+      icon: const Icon(Icons.people),
     ),
     ItemMenu(
       label: 'Desempenho',
-      icon: Icon(Icons.assessment),
+      icon: const Icon(Icons.assessment),
     ),
     ItemMenu(
       label: 'Dificuldades',
-      icon: Icon(Icons.help_outline),
+      icon: const Icon(Icons.help_outline),
     ),
     ItemMenu(
       label: 'Metas',
-      icon: Icon(Icons.check),
+      icon: const Icon(Icons.check),
     ),
     ItemMenu(
       label: 'Fale conosco',
-      icon: Icon(Icons.question_mark),
+      icon: const Icon(Icons.question_mark),
     ),
   ];
 
@@ -85,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('OST'),
+        title: const Text('OST'),
         actions: [],
       ),
       body: Container(

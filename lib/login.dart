@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Importe o pacote para usar TextInputFormatters.
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.green,
         scaffoldBackgroundColor: Colors.green,
-        inputDecorationTheme: InputDecorationTheme(
+        inputDecorationTheme: const InputDecorationTheme(
           filled: true,
           fillColor: Colors.white,
         ),
@@ -56,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 16.0),
             TextField(
               controller: _senhaController,
-              decoration: InputDecoration(labelText: 'Senha'),
+              decoration: const InputDecoration(labelText: 'Senha'),
               obscureText: true,
             ),
             const SizedBox(height: 16.0),
@@ -78,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                 primary: Colors.black,
                 minimumSize: Size(double.infinity, 60),
               ),
-              child: Text(
+              child: const Text(
                 'Entrar',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
