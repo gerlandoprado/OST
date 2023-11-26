@@ -114,8 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   item.icon,
-                  SizedBox(width: 8),
-                  Text(item.label, style: TextStyle(color: Colors.black)),
+                  const SizedBox(width: 8),
+                  Text(item.label, style: const TextStyle(color: Colors.black)),
                 ],
               ),
             );
