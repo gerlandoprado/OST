@@ -3,10 +3,11 @@ import 'package:flutter/foundation.dart';
 @immutable
 class UserData {
   final String uid;
-  final Map name;
+  final Map<String, String> name;
   final String avatarURL; 
   final String cpf;
   final String phoneNumber;
+  final String role;
 
   const UserData({
     required this.uid,
@@ -14,6 +15,7 @@ class UserData {
     required this.avatarURL,
     required this.cpf,
     required this.phoneNumber,
+    required this.role,
   });
 
   factory UserData.fromMap(Map<String, dynamic> map ) {
@@ -23,6 +25,7 @@ class UserData {
       avatarURL: map['avatarURL'],
       cpf: map['cpf'],
       phoneNumber: map['phoneNumber'],
+      role: map['role'],
     );
   }
 
@@ -33,6 +36,7 @@ class UserData {
       'avatarURL': avatarURL,
       'cpf': cpf,
       'phoneNumber': phoneNumber,
+      'role': role,
     };
   }
 
