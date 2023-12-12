@@ -17,7 +17,7 @@ class MenuDrawer extends StatelessWidget {
               margin: EdgeInsets.zero,
               padding: EdgeInsets.zero,
               child: Image.asset(
-                '/Users/gerlandoprado/Documents/Software/OST/imagens/menu.jpg',
+                '/Users/gerlandoprado/Documents/Software/OST/assets/menu.jpg',
                 fit: BoxFit.cover,
               ),
             ),
