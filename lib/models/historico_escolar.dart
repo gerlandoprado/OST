@@ -3,34 +3,36 @@ import 'package:flutter/foundation.dart';
 @immutable
 class HistoricoEscolarEntity {
   final String alunoID;
-  final int anoLetivo; 
+  final int anoLetivo;
+  final String turmaID;
   final List<Disciplina> disciplinas; 
 
   const HistoricoEscolarEntity({
     required this.alunoID,
     required this.anoLetivo,
     required this.disciplinas,
+    required this.turmaID,
   });
 
   factory HistoricoEscolarEntity.fromMap(Map<String, dynamic> map ) {
     return HistoricoEscolarEntity(
       alunoID: map['alunoID'],
       anoLetivo: map['anoLetivo'],
+      turmaID: map['turmaID'],
       disciplinas: (map['disciplinas'] as List<dynamic>).map((disciplinaMap) {
         return Disciplina.fromMap(disciplinaMap);
       }).toList(),
     );
 }
 
-
   Map<String, dynamic> toMap() {
     return {
       'alunoID': alunoID,
       'anoLetivo': anoLetivo,
+      'turmaID': turmaID,
       'disciplinas': disciplinas,
     };
   }
-
 
 }
 
@@ -68,5 +70,13 @@ class Bimestre {
       mediaBimestral: map['mediaBimestral'],
       totalFaltas: map['totalFaltas'],
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'numeroBimestre': numeroBimestre,
+      'mediaBimestral': mediaBimestral,
+      'totalFaltas': totalFaltas,
+    };
   }
 }
