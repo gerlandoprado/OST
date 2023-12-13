@@ -103,12 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context) => HomeScreen()),
                           );
                         },
-                  child: isLoading
-                      ? const CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        )
-                      : const Text('Entrar'),
+                  child: const Text('Entrar'),
                 ),
                 TextButton(
                   onPressed: () {
