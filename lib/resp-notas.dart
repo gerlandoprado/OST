@@ -6,6 +6,8 @@ import 'perfil.dart';
 class NotasScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  NotasScreen({super.key});
+
   // Função para gerar uma nota aleatória e retornar um widget DataCell
   DataCell generateNota() {
     final random = Random();
@@ -23,13 +25,13 @@ class NotasScreen extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Notas'),
-        actions: <Widget>[
-          const UserProfileButton(),
-          const SizedBox(width: 10),
+        title: const Text('Notas'),
+        actions: const <Widget>[
+          UserProfileButton(),
+          SizedBox(width: 10),
         ],
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () {
             _scaffoldKey.currentState?.openDrawer();
           },
@@ -54,7 +56,7 @@ class NotasScreen extends StatelessWidget {
           rows: <DataRow>[
             DataRow(
               cells: <DataCell>[
-                DataCell(Text('Matemática')),
+                const DataCell(Text('Matemática')),
                 generateNota(),
                 generateNota(),
                 generateNota(),
@@ -63,7 +65,7 @@ class NotasScreen extends StatelessWidget {
             ),
             DataRow(
               cells: <DataCell>[
-                DataCell(Text('Português')),
+                const DataCell(Text('Português')),
                 generateNota(),
                 generateNota(),
                 generateNota(),
@@ -72,7 +74,7 @@ class NotasScreen extends StatelessWidget {
             ),
             DataRow(
               cells: <DataCell>[
-                DataCell(Text('Geografia')),
+                const DataCell(Text('Geografia')),
                 generateNota(),
                 generateNota(),
                 generateNota(),
@@ -81,7 +83,7 @@ class NotasScreen extends StatelessWidget {
             ),
             DataRow(
               cells: <DataCell>[
-                DataCell(Text('História')),
+                const DataCell(Text('História')),
                 generateNota(),
                 generateNota(),
                 generateNota(),

@@ -1,39 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'resp-ocorrencia.dart';
 import 'resp-notas.dart';
 import 'menu.dart';
 import 'perfil.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'OST',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.green,
-        ),
-      ),
-      home: HomeScreen(),
-    );
-  }
-}
-
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({super.key});
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -42,9 +14,9 @@ class HomeScreen extends StatelessWidget {
       key: _scaffoldKey,
       appBar: AppBar(
         title: const Text('OST → Inicio'),
-        actions: <Widget>[
-          const UserProfileButton(),
-          const SizedBox(width: 10),
+        actions: const <Widget>[
+          UserProfileButton(),
+          SizedBox(width: 10),
         ],
         leading: IconButton(
           icon: const Icon(Icons.menu),

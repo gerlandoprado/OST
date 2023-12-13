@@ -1,8 +1,8 @@
-// user_profile_button.dart
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 class UserProfileButton extends StatelessWidget {
-  const UserProfileButton({Key? key}) : super(key: key);
+  const UserProfileButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,12 @@ class UserProfileButton extends StatelessWidget {
                   TextButton(
                     child: const Text('Sair dessa sessão'),
                     onPressed: () {
-                      // Implement logout functionality
-                      Navigator.pop(context); // Close the bottom sheet
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()),
+                      );
                     },
                   ),
                 ],
@@ -35,11 +39,8 @@ class UserProfileButton extends StatelessWidget {
         );
       },
       child: const CircleAvatar(
-        // Replace with your image
-        backgroundImage: NetworkImage('https://via.placeholder.com/100'),
+        backgroundImage: AssetImage('assets/perfil.png'),
       ),
     );
   }
 }
-
-
