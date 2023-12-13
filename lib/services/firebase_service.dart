@@ -5,6 +5,6 @@ class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _authentication = FirebaseAuth.instance;
 
-  FirebaseFirestore get firestore => _firestore;
-  FirebaseAuth get authentication => _authentication;
+  FirebaseFirestore get db => _firestore;
+  FirebaseAuth get auth => _authentication;
 }
