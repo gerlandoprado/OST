@@ -11,8 +11,6 @@ class AtribuirResponsaveisScreen extends StatefulWidget {
 
 class _AtribuirResponsaveisScreenState
     extends State<AtribuirResponsaveisScreen> {
-  final _matriculaController = TextEditingController();
-
   // Lista de responsáveis para exibição
   final List<Responsavel> responsaveis = [
     Responsavel(nome: 'Gerlando Lima Prado', cpf: '072.275.789-10'),
@@ -21,10 +19,8 @@ class _AtribuirResponsaveisScreenState
 
   // Função que simula a atribuição e retorna true ou false
   Future<bool> atribuirResponsavel(String matricula) async {
-    // Substitua pelo seu código de atribuição
-    await Future.delayed(
-        const Duration(seconds: 1)); // Simula o tempo de resposta da função
-    return true; // Retorna true ou false dependendo da lógica de atribuição
+    await Future.delayed(const Duration(seconds: 1));
+    return true;
   }
 
   @override
@@ -37,6 +33,8 @@ class _AtribuirResponsaveisScreenState
         itemCount: responsaveis.length,
         itemBuilder: (context, index) {
           final responsavel = responsaveis[index];
+          final matriculaController =
+              TextEditingController(); // Create a separate TextEditingController for each field
           return Card(
             margin: const EdgeInsets.all(8.0),
             child: Padding(
@@ -57,7 +55,8 @@ class _AtribuirResponsaveisScreenState
                     children: [
                       Expanded(
                         child: TextFormField(
-                          controller: _matriculaController,
+                          controller:
+                              matriculaController, // Use the separate TextEditingController
                           decoration: InputDecoration(
                             labelText: 'Insira o número de matrícula do aluno',
                             labelStyle: const TextStyle(color: Colors.black),
@@ -76,7 +75,8 @@ class _AtribuirResponsaveisScreenState
                         onPressed: () async {
                           // Chama a função de atribuição e processa o resultado
                           final resultado = await atribuirResponsavel(
-                              '123456'); // Substitua pelo valor correto
+                              matriculaController
+                                  .text); // Use the value from the separate TextEditingController
                           if (resultado) {
                             // Se a atribuição for bem-sucedida, remove o card
                             setState(() {

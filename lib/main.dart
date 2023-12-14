@@ -67,11 +67,11 @@ class LoginScreenState extends State<LoginScreen> {
     AuthenticationService auth = AuthenticationService();
     // UserDataService userDataService = UserDataService();
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.black,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/img-login.jpg'),
+            image: AssetImage('assets/img-login.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -92,7 +92,7 @@ class LoginScreenState extends State<LoginScreen> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: 'usuário',
+                      hintText: 'Seu email',
                       contentPadding: const EdgeInsets.all(16.0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -106,7 +106,7 @@ class LoginScreenState extends State<LoginScreen> {
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,
-                      hintText: 'senha',
+                      hintText: 'Sua senha',
                       contentPadding: const EdgeInsets.all(16.0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -116,7 +116,7 @@ class LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 24.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Colors.green,
                       minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -129,7 +129,7 @@ class LoginScreenState extends State<LoginScreen> {
                           await auth.userSignIn(email: email, password: senha);
                       if (_status == AuthStatus.successful) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('firebase Msg: $_status')),
+                          SnackBar(content: Text('Logado com sucesso!')),
                         );
                         Navigator.push(
                           context,
@@ -140,7 +140,7 @@ class LoginScreenState extends State<LoginScreen> {
                             AuthenticationExceptionHandler.generateErrorMessage(
                                 _status);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('errorMsg: $errorMsg')),
+                          SnackBar(content: Text('$errorMsg')),
                         );
                       }
                     },
@@ -155,7 +155,7 @@ class LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 16.0),
                   OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      side: const BorderSide(width: 2.0, color: Colors.black),
+                      side: const BorderSide(width: 2.0, color: Colors.green),
                       minimumSize: const Size(double.infinity, 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -171,7 +171,7 @@ class LoginScreenState extends State<LoginScreen> {
                     child: const Text(
                       'Cadastrar',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.green,
                         fontSize: 18.0,
                       ),
                     ),

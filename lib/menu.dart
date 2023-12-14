@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'resp-ocorrencia.dart';
 import 'resp-notas.dart';
 import 'resp-inicio.dart';
+import 'dir-atribuicao-alunos.dart';
+import 'resp-frequencia.dart';
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({super.key});
@@ -48,6 +50,10 @@ class MenuDrawer extends StatelessWidget {
             title: const Text('FREQUENCIA'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TelaFrequencia()),
+              );
             },
           ),
           ListTile(
@@ -64,9 +70,14 @@ class MenuDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.people),
-            title: const Text('PROFESSORES'),
+            title: const Text('ATRIBUIR'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AtribuirResponsaveisScreen(),
+                  ));
             },
           ),
           ListTile(

@@ -4,6 +4,7 @@ import 'resp-notas.dart';
 import 'menu.dart';
 import 'perfil.dart';
 import 'dir-atribuicao-alunos.dart';
+import 'resp-frequencia.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -47,7 +48,10 @@ class HomeScreen extends StatelessWidget {
             icon: Icons.calendar_view_day,
             label: 'FREQUÊNCIA',
             onTap: () {
-              // Implement navigation or functionality for FREQUÊNCIA
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TelaFrequencia()),
+              );
             },
           ),
           _buildGridButton(
@@ -62,7 +66,7 @@ class HomeScreen extends StatelessWidget {
           ),
           _buildGridButton(
             icon: Icons.people,
-            label: 'PROFESSORES',
+            label: 'ATRIBUIR',
             onTap: () {
               Navigator.push(
                 context,
