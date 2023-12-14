@@ -5,15 +5,15 @@ import 'package:ost/services/firebase_service.dart';
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseService().auth;
 
-  Future<AuthStatus> createUser({required String email, required String password}) async {
+  Future<User?> createUser({required String email, required String password}) async {
     AuthStatus _status;
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      _status = AuthStatus.successful;
+      UserCredential userCred = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      return userCred.user;
     } on FirebaseAuthException catch (e) {
       _status = AuthenticationExceptionHandler.handleExecption(e);
+      throw StateError(AuthenticationExceptionHandler.generateErrorMessage(_status));
     }
-    return _status;
   }
 
   Future<AuthStatus> userSignIn({required String email, required String password}) async {
