@@ -34,7 +34,7 @@ class _AtribuirResponsaveisScreenState
         itemBuilder: (context, index) {
           final responsavel = responsaveis[index];
           final matriculaController =
-              TextEditingController(); // Create a separate TextEditingController for each field
+              TextEditingController();
           return Card(
             margin: const EdgeInsets.all(8.0),
             child: Padding(
@@ -56,7 +56,7 @@ class _AtribuirResponsaveisScreenState
                       Expanded(
                         child: TextFormField(
                           controller:
-                              matriculaController, // Use the separate TextEditingController
+                              matriculaController,
                           decoration: InputDecoration(
                             labelText: 'Insira o número de matrícula do aluno',
                             labelStyle: const TextStyle(color: Colors.black),

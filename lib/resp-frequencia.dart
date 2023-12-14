@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class TelaFrequencia extends StatelessWidget {
   const TelaFrequencia({super.key});
@@ -17,7 +16,7 @@ class TelaFrequencia extends StatelessWidget {
       Frequencia(data: '08/12/2023', status: 'Presente'),
       Frequencia(data: '07/12/2023', status: 'Presente'),
       Frequencia(data: '06/12/2023', status: 'Presente'),
-      // Adicione mais registros conforme necessário
+      
     ];
 
     return Scaffold(

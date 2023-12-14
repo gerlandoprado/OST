@@ -62,6 +62,7 @@ class RegisterScreenState extends State<RegisterScreen> {
             ),
             TextFormField(
               controller: _cpfController,
+              keyboardType: TextInputType.phone,
               decoration: const InputDecoration(
                 labelText: 'CPF',
               ),

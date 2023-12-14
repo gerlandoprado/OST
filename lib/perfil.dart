@@ -29,7 +29,7 @@ class UserProfileButton extends StatelessWidget {
                       //aqui
                       await auth.userLogout();
                       Navigator.pop(context);
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const LoginScreen()),

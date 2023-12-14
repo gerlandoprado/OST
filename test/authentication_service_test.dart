@@ -1,37 +1,52 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:ost/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ost/services/authentication_service.dart';
 
+// Criando uma classe Mock para simular o FirebaseAuth
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
 void main() {
-  group('Authentication Service Tests', () {
-    MockFirebaseAuth mockFirebaseAuth;
-    AuthenticationService authenticationService;
+  group('Serviço de Autenticação', () {
+    MockFirebaseAuth mockAuth;
+    AuthenticationService service;
 
     setUp(() {
-      mockFirebaseAuth = MockFirebaseAuth();
-      authenticationService = AuthenticationService(auth: mockFirebaseAuth);
+      mockAuth = MockFirebaseAuth();
+      service = AuthenticationService(auth: mockAuth);
     });
 
-    test('Test authentication service initialization', () {
-      expect(authenticationService.auth, mockFirebaseAuth);
+    test('Criação de usuário com sucesso', () async {
+      when(mockAuth.createUserWithEmailAndPassword(
+        email: 'teste@example.com',
+        password: 'senha123',
+      )).thenAnswer((_) async => MockUserCredential());
+
+      var resultado = await service.createUser(
+        email: 'teste@example.com',
+        password: 'senha123',
+      );
+
+      expect(resultado, isA<AuthStatus>());
+      expect(resultado, equals(AuthStatus.success));
     });
-  });
 
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    test('Falha na criação de usuário', () async {
+      when(mockAuth.createUserWithEmailAndPassword(
+        email: 'existente@example.com',
+        password: 'senha123',
+      )).thenThrow(FirebaseAuthException(
+        code: 'email-already-in-use',
+        message: 'O email já está em uso.',
+      ));
 
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      expect(
+        service.createUser(email: 'existente@example.com', password: 'senha123'),
+        throwsA(isA<FirebaseAuthException>()),
+      );
+    });
 
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Mais testes podem ser adicionados aqui para signIn e signOut
   });
 }
