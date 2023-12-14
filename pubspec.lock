@@ -276,7 +276,7 @@ packages:
     dependency: "direct main"
     description:
       name: google_sign_in
-      sha256: "23982b6a6b9e664bdc540488732d5760bc73e83ec74c2bd87cb690cfd357dd75"
+      sha256: "8f8b94880f2753ccb796744259da529674e49b9af2e372abf6978c590c0ebfef"
       url: "https://pub.dev"
     source: hosted
     version: "6.1.6"
