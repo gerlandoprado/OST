@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ost/services/authentication_service.dart';
+import 'cadastro.dart';
 import 'resp-inicio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -33,88 +35,173 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    verificarSessao();
+  }
+
+  Future<void> verificarSessao() async {
+    AuthenticationService auth = AuthenticationService();
+    bool sessaoAtiva = await auth.estaLogado();
+
+    if (sessaoAtiva) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    AuthenticationService auth = AuthenticationService();
+    // UserDataService userDataService = UserDataService();
     return Scaffold(
       backgroundColor: Colors.green,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Entre com sua conta:',
-                  style: TextStyle(fontSize: 20.0, color: Colors.white),
-                ),
-                const SizedBox(height: 20.0),
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'usuário',
-                    contentPadding: const EdgeInsets.all(16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/img-login.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Entre com sua conta:',
+                    style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: 'usuário',
+                      contentPadding: const EdgeInsets.all(16.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: 'senha',
-                    contentPadding: const EdgeInsets.all(16.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                  const SizedBox(height: 16.0),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: 'senha',
+                      contentPadding: const EdgeInsets.all(16.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 24.0),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                  const SizedBox(height: 24.0),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      minimumSize: const Size(double.infinity, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    onPressed: () async {
+                      String email = _emailController.text;
+                      String senha = _passwordController.text;
+                      final _status =
+                          await auth.userSignIn(email: email, password: senha);
+                      if (_status == AuthStatus.successful) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('firebase Msg: $_status')),
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                        );
+                      } else {
+                        String errorMsg =
+                            AuthenticationExceptionHandler.generateErrorMessage(
+                                _status);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('errorMsg: $errorMsg')),
+                        );
+                      }
+                    },
+                    child: const Text(
+                      'Entrar',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                      ),
                     ),
                   ),
-                  onPressed: isLoading
-                      ? null
-                      : () async {
-                          setState(() {
-                            isLoading = true;
-                          });
-
-                          await Future.delayed(const Duration(seconds: 3));
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
-                          );
-                        },
-                  child: const Text('Entrar'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Implementar funcionalidade de esqueci minha senha
-                  },
-                  child: const Text(
-                    'Esqueceu sua senha?',
-                    style: TextStyle(color: Colors.white),
+                  const SizedBox(height: 16.0),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(width: 2.0, color: Colors.black),
+                      minimumSize: const Size(double.infinity, 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    onPressed: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterScreen()),
+                      );
+                    },
+                    child: const Text(
+                      'Cadastrar',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.0,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 16.0), // Add spacing here
+                  TextButton(
+                    onPressed: () async {
+                      // Implementar funcionalidade de esqueci minha senha
+                      String email = _emailController.text;
+                      final _status = auth.userResetPassword(email: email);
+                      if (_status == AuthStatus.successful) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('firebase Msg: $_status')),
+                        );
+                      } else {
+                        String errorMsg =
+                            AuthenticationExceptionHandler.generateErrorMessage(
+                                _status);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('errorMsg: $errorMsg')),
+                        );
+                      }
+                    },
+                    child: const Text(
+                      'Esqueceu sua senha?',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

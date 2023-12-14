@@ -2,56 +2,37 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class UserData {
-  final String uid;
-  final Map<String, String> name;
-  final String avatarURL; 
+  final Map<String, String> nome;
+  final String avatarURL;
   final String cpf;
-  final String phoneNumber;
+  final String telefone;
   final String role;
 
   const UserData({
-    required this.uid,
-    required this.name,
+    required this.nome,
     required this.avatarURL,
     required this.cpf,
-    required this.phoneNumber,
+    required this.telefone,
     required this.role,
   });
 
-  factory UserData.fromMap(Map<String, dynamic> map ) {
+  factory UserData.fromMap(Map<String, dynamic> map) {
     return UserData(
-      uid: map['uid'],
-      name: map['name'],
+      nome: map['nome'],
       avatarURL: map['avatarURL'],
       cpf: map['cpf'],
-      phoneNumber: map['phoneNumber'],
+      telefone: map['telefone'],
       role: map['role'],
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'uid': uid,
-      'name': name,
+      'nome': nome,
       'avatarURL': avatarURL,
       'cpf': cpf,
-      'phoneNumber': phoneNumber,
+      'telefone': telefone,
       'role': role,
     };
   }
-
-  // @override
-  // String toString() => 'UserData(name: $name, avatarURL: $avatarURL,cpf: $cpf,phoneNumber: $phoneNumber)';
-
-  // @override
-  // bool operator ==(Object other) {
-  //   if(identical(this, other)) return true;
-
-  //   return other is UserData && other.name == name && other.avatarURL == avatarURL && other.cpf == cpf && other.phoneNumber == phoneNumber;
-  // }
-
-  // @override
-  // int get hashCode => name.hashCode ^ avatarURL.hashCode ^ cpf.hashCode ^ phoneNumber.hashCode;
-
-
 }

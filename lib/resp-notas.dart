@@ -11,7 +11,7 @@ class NotasScreen extends StatelessWidget {
   // Função para gerar uma nota aleatória e retornar um widget DataCell
   DataCell generateNota() {
     final random = Random();
-    final nota = random.nextDouble() * 10;
+    final nota = random.nextDouble() * (10 - 5) + 4;
     return DataCell(
       Text(
         nota.toStringAsFixed(1),

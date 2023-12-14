@@ -6,26 +6,42 @@ class UserDataService {
 
   Future<void> setCurrentUserPersonalData({
     required String uid,
-    required String firstName,
-    required String lastName,
+    required String primeiroNome,
+    required String sobrenome,
     required String cpf,
     required String phoneNumber,
     required String avatarURL,
     required String role,
   }) async {
-      UserData userData = UserData(
-        uid: uid,
-        name: {
-          firstName: firstName, 
-          lastName: lastName,
-        }, 
-        cpf: cpf,
-        avatarURL: avatarURL,
-        phoneNumber: phoneNumber,
-        role: role,
-      );
+    UserData userData = UserData(
+      nome: {
+        "primeiro": primeiroNome,
+        "sobrenome": sobrenome,
+      },
+      cpf: cpf,
+      avatarURL: avatarURL,
+      telefone: phoneNumber,
+      role: role,
+    );
 
-      // IMPORTANTE: usuarioDados é associado com um usuario autenticado, então devem ter o mesmo uid
-      await _firebase.db.collection("usuarioDados").doc(uid).set(userData.toMap());
+    // final nome = {
+    //   "primeiro": primeiroNome,
+    //   "sobrenome": sobrenome,
+    // };
+
+    // var data = <String, dynamic>{
+    //   "avatarURL": avatarURL,
+    //   "cpf": cpf,
+    //   "nome": nome,
+    //   "role": role,
+    //   "telefone": phoneNumber,
+    // };
+
+    // IMPORTANTE: usuarioDados é associado com um usuario autenticado, então devem ter o mesmo uid
+    await _firebase.db
+        .collection("usuarioDados")
+        .doc(uid)
+        .set(userData.toMap())
+        .onError((e, _) => print("Error writing document: $e"));
   }
 }

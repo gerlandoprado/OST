@@ -15,23 +15,23 @@ class ProfessorService {
     required String graduation,
   }) async {
     User? currentUser = _firebase.auth.currentUser;
-    if(currentUser != null) {
+    if (currentUser != null) {
       String userUID = currentUser.uid;
-      ProfessorEntity professor = ProfessorEntity(uid: userUID, graduation: graduation, accountAproved: false);
+      ProfessorEntity professor = ProfessorEntity(
+          uid: userUID, graduation: graduation, accountAproved: false);
       UserDataService().setCurrentUserPersonalData(
         uid: userUID,
-        firstName: firstName, 
-        lastName: lastName,
-        cpf: cpf, 
-        phoneNumber: phoneNumber, 
-        avatarURL: avatarURL, 
+        primeiroNome: firstName,
+        sobrenome: lastName,
+        cpf: cpf,
+        phoneNumber: phoneNumber,
+        avatarURL: avatarURL,
         role: "discente",
       );
-      await _firebase.db.collection("professores").doc(userUID).set(professor.toMap());
+      await _firebase.db
+          .collection("professores")
+          .doc(userUID)
+          .set(professor.toMap());
     }
   }
-
-  
-
-  
 }

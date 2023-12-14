@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ost/services/authentication_service.dart';
 import 'main.dart';
 
 class UserProfileButton extends StatelessWidget {
@@ -6,6 +7,7 @@ class UserProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthenticationService auth = AuthenticationService();
     return GestureDetector(
       onTap: () {
         showModalBottomSheet(
@@ -23,7 +25,9 @@ class UserProfileButton extends StatelessWidget {
                   ),
                   TextButton(
                     child: const Text('Sair dessa sessão'),
-                    onPressed: () {
+                    onPressed: () async {
+                      //aqui
+                      await auth.userLogout();
                       Navigator.pop(context);
                       Navigator.push(
                         context,
