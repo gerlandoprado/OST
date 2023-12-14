@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:ost/services/authentication_service.dart';
-import 'package:ost/services/user_data_service.dart';
+import 'package:ost/services/responsavel_aluno_service.dart';
+//import 'package:ost/services/user_data_service.dart';
 import 'resp-inicio.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     AuthenticationService auth = AuthenticationService();
-    UserDataService userDataService = UserDataService();
+    //UserDataService userDataService = UserDataService();
 
     return Scaffold(
       appBar: AppBar(
@@ -148,14 +149,18 @@ class RegisterScreenState extends State<RegisterScreen> {
                       await auth.userSignIn(email: email, password: senha);
                   if (_status == AuthStatus.successful) {
                     String userUID = auth.currentUser!.uid;
-                    await userDataService.setCurrentUserPersonalData(
-                        uid: userUID,
-                        primeiroNome: nome,
-                        sobrenome: sobrenome,
-                        cpf: cpf,
-                        phoneNumber: telefone,
-                        avatarURL: "./qualquerCoisaSoUmTeste.png",
-                        role: "responsavel");
+                    ResponsavelAlunoService responsavelAlunoService =
+                        ResponsavelAlunoService();
+                    responsavelAlunoService.createResponsavel(
+                      uid: userUID,
+                      primeiroNome: nome,
+                      sobrenome: sobrenome,
+                      email: email,
+                      password: senha,
+                      cpf: cpf,
+                      phoneNumber: telefone,
+                      avatarURL: "seila",
+                    );
                   } else {
                     String errorMsg =
                         AuthenticationExceptionHandler.generateErrorMessage(

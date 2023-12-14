@@ -3,6 +3,7 @@ import 'resp-ocorrencia.dart';
 import 'resp-notas.dart';
 import 'menu.dart';
 import 'perfil.dart';
+import 'dir-atribuicao-alunos.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -63,7 +64,11 @@ class HomeScreen extends StatelessWidget {
             icon: Icons.people,
             label: 'PROFESSORES',
             onTap: () {
-              // Implement navigation or functionality for PROFESSORES
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AtribuirResponsaveisScreen()),
+              );
             },
           ),
           // ... (add more buttons as needed)

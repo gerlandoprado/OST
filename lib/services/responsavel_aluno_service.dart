@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ost/models/aluno.dart';
 import 'package:ost/models/responsavel.dart';
+import 'package:ost/models/user_data.dart';
 import 'package:ost/services/authentication_service.dart';
 import 'package:ost/services/firebase_service.dart';
 import 'package:ost/services/user_data_service.dart';
@@ -10,6 +12,7 @@ class ResponsavelAlunoService {
   final AuthenticationService authService = AuthenticationService();
 
   Future<void> createResponsavel({
+    required String uid,
     required String primeiroNome,
     required String sobrenome,
     required String email,
@@ -17,13 +20,14 @@ class ResponsavelAlunoService {
     required String cpf,
     required String phoneNumber,
     required String avatarURL,
-    required String alunoMatricula,
   }) async {
     User? currentUser = _firebase.auth.currentUser;
     if (currentUser != null) {
       String userUID = currentUser.uid;
-      ResponsavelEntity responsavel =
-          const ResponsavelEntity(alunoID: "", alunoFoiVinculado: false);
+      ResponsavelEntity responsavel = const ResponsavelEntity(
+        alunoID: "",
+        alunoFoiVinculado: false,
+      );
       UserDataService().setCurrentUserPersonalData(
         uid: userUID,
         primeiroNome: primeiroNome,
@@ -69,11 +73,41 @@ class ResponsavelAlunoService {
     required String responsavelID,
     required String alunoMatricula,
   }) async {
+    ResponsavelEntity responsavel =
+        ResponsavelEntity(alunoID: alunoMatricula, alunoFoiVinculado: true);
     await _firebase.db
         .collection("responsavel")
         .doc(responsavelID)
-        .update({"alunoID": alunoMatricula});
+        .update(responsavel.toMap());
   }
+
+  Future<List<UserData>> listeResponsaveisNaoVinculados() async {
+    List<UserData> responsaveisNaoVinculados = [];
+    QuerySnapshot querySnapshot = await _firebase.db
+        .collection("responsavel")
+        .where("alunoFoiVinculado", isEqualTo: false)
+        .get();
+    for (var docSnapshot in querySnapshot.docs) {
+      if (docSnapshot.exists) {
+        final uid = docSnapshot.id;
+        final uds = UserDataService();
+        UserData responsavel = await uds.getUserByID(uid: uid);
+        responsaveisNaoVinculados.add(responsavel);
+      } else {
+        // throw StateError('erro aqui: ');
+        print("nãoaaaaaaaaaaaaaaaaaaa existe");
+        // continue;
+      }
+    }
+    return responsaveisNaoVinculados;
+  }
+
+  // Future<bool> estaVinculadoResponsavelAluno({required String responsavelID}) async {
+
+  //   if() {
+
+  //   }
+  // }
 }
 
 
@@ -101,3 +135,10 @@ class ResponsavelAlunoService {
   // }
   
 // }
+
+
+/*LinkedMap<String, dynamic> linkedMap = ...; //
+
+Map<String, String> stringMap = linkedMap.map((key, value) {
+  return MapEntry(key, value.toString());
+});*/

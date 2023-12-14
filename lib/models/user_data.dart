@@ -2,14 +2,16 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class UserData {
-  final Map<String, String> nome;
+  final String primeiroNome;
+  final String sobrenome;
   final String avatarURL;
   final String cpf;
   final String telefone;
   final String role;
 
   const UserData({
-    required this.nome,
+    required this.primeiroNome,
+    required this.sobrenome,
     required this.avatarURL,
     required this.cpf,
     required this.telefone,
@@ -18,7 +20,8 @@ class UserData {
 
   factory UserData.fromMap(Map<String, dynamic> map) {
     return UserData(
-      nome: map['nome'],
+      primeiroNome: map['primeiroNome'],
+      sobrenome: map['sobrenome'],
       avatarURL: map['avatarURL'],
       cpf: map['cpf'],
       telefone: map['telefone'],
@@ -28,7 +31,8 @@ class UserData {
 
   Map<String, dynamic> toMap() {
     return {
-      'nome': nome,
+      'primeiroNome': primeiroNome,
+      'sobrenome': sobrenome,
       'avatarURL': avatarURL,
       'cpf': cpf,
       'telefone': telefone,

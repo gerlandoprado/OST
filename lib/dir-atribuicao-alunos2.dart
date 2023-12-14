@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ost/models/user_data.dart';
+import 'package:ost/services/responsavel_aluno_service.dart';
 
 class AtribuirResponsaveisScreen extends StatefulWidget {
-  const AtribuirResponsaveisScreen({Key? key});
+  const AtribuirResponsaveisScreen({Key? key}) : super(key: key);
 
   @override
   _AtribuirResponsaveisScreenState createState() =>
@@ -12,12 +14,31 @@ class AtribuirResponsaveisScreen extends StatefulWidget {
 class _AtribuirResponsaveisScreenState
     extends State<AtribuirResponsaveisScreen> {
   final _matriculaController = TextEditingController();
+  ResponsavelAlunoService responsavelAlunoService = ResponsavelAlunoService();
+  List<UserData> responsaveis = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadResponsaveis();
+  }
+
+  Future<void> loadResponsaveis() async {
+    try {
+      responsaveis =
+          await responsavelAlunoService.listeResponsaveisNaoVinculados();
+      setState(() {});
+      print("KKKKKKKKKKKKKKKK" + responsaveis.first.primeiroNome);
+    } catch (e) {
+      print("deu ruim:" + e.toString());
+    }
+  }
 
   // Lista de responsáveis para exibição
-  final List<Responsavel> responsaveis = [
-    Responsavel(nome: 'Gerlando Lima Prado', cpf: '072.275.789-10'),
-    Responsavel(nome: 'Everton de Almeida Veras', cpf: '525.789.115-82'),
-  ];
+  // final List<Responsavel> responsaveis = [
+  //   Responsavel(nome: 'Gerlando Lima Prado', cpf: '072.275.789-10'),
+  //   Responsavel(nome: 'Everton de Almeida Veras', cpf: '525.789.115-82'),
+  // ];
 
   // Função que simula a atribuição e retorna true ou false
   Future<bool> atribuirResponsavel(String matricula) async {
@@ -29,6 +50,7 @@ class _AtribuirResponsaveisScreenState
 
   @override
   Widget build(BuildContext context) {
+    final scaffoldContext = context;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Atribuir'),
@@ -45,7 +67,7 @@ class _AtribuirResponsaveisScreenState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    responsavel.nome,
+                    responsavel.cpf,
                     style: const TextStyle(
                         fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
@@ -58,9 +80,9 @@ class _AtribuirResponsaveisScreenState
                       Expanded(
                         child: TextFormField(
                           controller: _matriculaController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Insira o número de matrícula do aluno',
-                            labelStyle: const TextStyle(color: Colors.black),
+                            labelStyle: TextStyle(color: Colors.black),
                           ),
                           keyboardType: TextInputType.number,
                           inputFormatters: <TextInputFormatter>[
@@ -74,18 +96,19 @@ class _AtribuirResponsaveisScreenState
                           foregroundColor: Colors.white,
                         ),
                         onPressed: () async {
-                          // Chama a função de atribuição e processa o resultado
+                          // Função do backend pra abribuir responsável
                           final resultado = await atribuirResponsavel(
-                              '123456'); // Substitua pelo valor correto
+                              _matriculaController.text);
                           if (resultado) {
                             // Se a atribuição for bem-sucedida, remove o card
                             setState(() {
                               responsaveis.removeAt(index);
 
+                              // Alerta se não houver mais responsáveis
                               if (responsaveis.isEmpty) {
                                 // Se não houver mais responsáveis, exibe a mensagem
                                 showDialog(
-                                  context: context,
+                                  context: scaffoldContext,
                                   builder: (context) {
                                     final dialogContext = context;
                                     return AlertDialog(
@@ -110,7 +133,7 @@ class _AtribuirResponsaveisScreenState
                             });
                           } else {
                             // Se a atribuição falhar, mostra um SnackBar
-                            ScaffoldMessenger.of(context).showSnackBar(
+                            ScaffoldMessenger.of(scaffoldContext).showSnackBar(
                               const SnackBar(
                                 content: Text('Falha ao atribuir responsável.'),
                               ),
