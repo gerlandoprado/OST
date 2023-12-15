@@ -15,6 +15,7 @@ class AuthenticationService {
     } on FirebaseAuthException catch (e) {
       _status = AuthenticationExceptionHandler.handleExecption(e);
     }
+    return _status;
   }
 
   Future<AuthStatus> userSignIn(
