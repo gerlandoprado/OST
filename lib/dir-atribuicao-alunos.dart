@@ -76,7 +76,7 @@ class _AtribuirResponsaveisScreenState
                           // Chama a função de atribuição e processa o resultado
                           final resultado = await atribuirResponsavel(
                               matriculaController
-                                  .text); // Use the value from the separate TextEditingController
+                                  .text); // Use o valor do TextEditingController separado
                           if (resultado) {
                             // Se a atribuição for bem-sucedida, remove o card
                             setState(() {
